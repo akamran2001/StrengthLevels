@@ -1,15 +1,29 @@
 import { useState, useEffect } from "react";
-
 function App() {
+  type StrengthLevelsType = {
+    [exercise: string]: {
+      [sex: string]: { [level: string]: number };
+    };
+  };
+  type OneRepMaxesType = {
+    [exercise: string]: string;
+  };
+  type ResultsType = OneRepMaxesType;
+
   const [sex, setSex] = useState("M");
   const [bodyWeight, setBodyWeight] = useState("");
-  const [oneRepMaxes, setOneRepMaxes] = useState({
+  const [oneRepMaxes, setOneRepMaxes] = useState<OneRepMaxesType>({
     Squat: "",
     Bench: "",
     Deadlift: "",
   });
-  const [strengthLevels, setStrengthLevels] = useState(null);
-  const [results, setResults] = useState({});
+  const [strengthLevels, setStrengthLevels] =
+    useState<StrengthLevelsType | null>(null);
+  const [results, setResults] = useState<ResultsType>({
+    Squat: "",
+    Bench: "",
+    Deadlift: "",
+  });
   const [validInputs, setValidInputs] = useState(true);
 
   useEffect(() => {
@@ -43,25 +57,25 @@ function App() {
 
       const sortedLevels = Object.entries(levels).sort((a, b) => a[1] - b[1]);
 
-      if (ratio < sortedLevels[0][1]) {
-        newResults[exercise] = "Untrained";
-        return;
-      }
-
       let assignedLevel = "Untrained";
 
-      for (let i = 0; i < sortedLevels.length; i++) {
-        const [level, threshold] = sortedLevels[i];
-
-        if (ratio <= threshold) {
-          assignedLevel = level;
-          break;
-        }
-      }
-
+      const lowestThreshold = sortedLevels[0][1];
       const highestThreshold = sortedLevels[sortedLevels.length - 1][1];
-      if (ratio > highestThreshold) {
+
+      if (ratio < lowestThreshold) {
+        assignedLevel = "Untrained";
+      } else if (ratio >= highestThreshold) {
         assignedLevel = "Freak";
+      } else {
+        for (let i = 0; i < sortedLevels.length - 1; i++) {
+          let currentLevel = sortedLevels[i];
+          let nextLevel = sortedLevels[i + 1];
+
+          if (ratio >= currentLevel[1] && ratio < nextLevel[1]) {
+            assignedLevel = currentLevel[0];
+            break;
+          }
+        }
       }
 
       newResults[exercise] = assignedLevel;
@@ -75,7 +89,7 @@ function App() {
     calculateStrengthLevel();
   }, [sex, bodyWeight, oneRepMaxes]);
 
-  const getBadgeClass = (level) => {
+  const getBadgeClass = (level: string) => {
     switch (level) {
       case "Untrained":
         return "badge bg-secondary";
@@ -137,13 +151,7 @@ function App() {
               <label className="form-label">{exercise} 1RM (lbs):</label>
               <input
                 type="number"
-                className={`form-control ${
-                  !validInputs &&
-                  (!oneRepMaxes[exercise] ||
-                    parseFloat(oneRepMaxes[exercise]) <= 0)
-                    ? "is-invalid"
-                    : ""
-                }`}
+                className={`form-control ${!validInputs ? "is-invalid" : ""}`}
                 value={oneRepMaxes[exercise]}
                 onChange={(e) =>
                   setOneRepMaxes((prev) => ({
