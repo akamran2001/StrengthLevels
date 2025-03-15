@@ -1,0 +1,44 @@
+{
+  "Squat": {
+    "M": {
+      "Beginner": 1.25,
+      "Intermediate": 1.75,
+      "Advanced": 2.5,
+      "Elite": 3.0
+    },
+    "F": {
+      "Beginner": 1.15,
+      "Intermediate": 1.65,
+      "Advanced": 2.4,
+      "Elite": 2.9
+    }
+  },
+  "Bench": {
+    "M": {
+      "Beginner": 1.15,
+      "Intermediate": 1.65,
+      "Advanced": 2.4,
+      "Elite": 2.9
+    },
+    "F": {
+      "Beginner": 1.25,
+      "Intermediate": 1.75,
+      "Advanced": 2.5,
+      "Elite": 3.0
+    }
+  },
+  "Deadlift": {
+    "M": {
+      "Beginner": 1.25,
+      "Intermediate": 1.75,
+      "Advanced": 2.5,
+      "Elite": 3.0
+    },
+    "F": {
+      "Beginner": 1.25,
+      "Intermediate": 1.75,
+      "Advanced": 2.5,
+      "Elite": 3.0
+    }
+  }
+}
