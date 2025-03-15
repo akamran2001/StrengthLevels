@@ -64,14 +64,16 @@ function App() {
 
       if (ratio < lowestThreshold) {
         assignedLevel = "Untrained";
+      } else if (ratio === lowestThreshold) {
+        assignedLevel = sortedLevels[0][0];
       } else if (ratio >= highestThreshold) {
         assignedLevel = "Freak";
       } else {
-        for (let i = 0; i < sortedLevels.length - 1; i++) {
+        for (let i = 1; i < sortedLevels.length - 1; i++) {
           let currentLevel = sortedLevels[i];
-          let nextLevel = sortedLevels[i + 1];
+          let prevLevel = sortedLevels[i - 1];
 
-          if (ratio >= currentLevel[1] && ratio < nextLevel[1]) {
+          if (ratio > prevLevel[1] && ratio <= currentLevel[1]) {
             assignedLevel = currentLevel[0];
             break;
           }
@@ -131,17 +133,10 @@ function App() {
           <label className="form-label">Body Weight (lbs):</label>
           <input
             type="number"
-            className={`form-control ${
-              !validInputs && (!bodyWeight || parseFloat(bodyWeight) <= 0)
-                ? "is-invalid"
-                : ""
-            }`}
+            className="form-control"
             value={bodyWeight}
             onChange={(e) => setBodyWeight(e.target.value)}
           />
-          {!validInputs && (!bodyWeight || parseFloat(bodyWeight) <= 0) && (
-            <div className="invalid-feedback">Enter a valid body weight.</div>
-          )}
         </div>
 
         {/* 1RM Inputs */}
@@ -151,7 +146,7 @@ function App() {
               <label className="form-label">{exercise} 1RM (lbs):</label>
               <input
                 type="number"
-                className={`form-control ${!validInputs ? "is-invalid" : ""}`}
+                className="form-control"
                 value={oneRepMaxes[exercise]}
                 onChange={(e) =>
                   setOneRepMaxes((prev) => ({
@@ -160,13 +155,6 @@ function App() {
                   }))
                 }
               />
-              {!validInputs &&
-                (!oneRepMaxes[exercise] ||
-                  parseFloat(oneRepMaxes[exercise]) <= 0) && (
-                  <div className="invalid-feedback">
-                    Enter a valid {exercise} 1RM.
-                  </div>
-                )}
             </div>
           ))}
         </div>
