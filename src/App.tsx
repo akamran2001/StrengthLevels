@@ -8,7 +8,9 @@ function App() {
   type OneRepMaxesType = {
     [exercise: string]: string;
   };
-  type ResultsType = OneRepMaxesType;
+  type ResultsType = {
+    [exercise: string]: string;
+  };
 
   const [sex, setSex] = useState("M");
   const [bodyWeight, setBodyWeight] = useState("");
