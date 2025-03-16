@@ -24,7 +24,6 @@ function App() {
     Bench: "",
     Deadlift: "",
   });
-  const [validInputs, setValidInputs] = useState(true);
 
   useEffect(() => {
     fetch("/strengthLevels.json")
@@ -35,12 +34,10 @@ function App() {
 
   const calculateStrengthLevel = () => {
     if (!strengthLevels || !bodyWeight || isNaN(parseFloat(bodyWeight))) {
-      setValidInputs(false);
       return;
     }
 
     const newResults: { [key: string]: string } = {};
-    let allInputsValid = true;
 
     Object.entries(oneRepMaxes).forEach(([exercise, maxWeight]) => {
       const weight = parseFloat(maxWeight);
@@ -48,7 +45,6 @@ function App() {
 
       if (isNaN(weight) || weight <= 0 || bw <= 0) {
         newResults[exercise] = "Invalid Input";
-        allInputsValid = false;
         return;
       }
 
@@ -82,8 +78,6 @@ function App() {
 
       newResults[exercise] = assignedLevel;
     });
-
-    setValidInputs(allInputsValid);
     setResults(newResults);
   };
 
