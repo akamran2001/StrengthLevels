@@ -7,37 +7,37 @@
       "Elite": 3.0
     },
     "F": {
-      "Beginner": 1.15,
-      "Intermediate": 1.65,
-      "Advanced": 2.4,
-      "Elite": 2.9
+      "Beginner": 1.0,
+      "Intermediate": 1.5,
+      "Advanced": 1.75,
+      "Elite": 2.25
     }
   },
   "Bench": {
     "M": {
-      "Beginner": 1.15,
-      "Intermediate": 1.65,
-      "Advanced": 2.4,
-      "Elite": 2.9
+      "Beginner": 1.0,
+      "Intermediate": 1.5,
+      "Advanced": 2.0,
+      "Elite": 2.25
     },
     "F": {
-      "Beginner": 1.25,
-      "Intermediate": 1.75,
-      "Advanced": 2.5,
-      "Elite": 3.0
+      "Beginner": 0.5,
+      "Intermediate": 0.75,
+      "Advanced": 1.0,
+      "Elite": 1.25
     }
   },
   "Deadlift": {
     "M": {
-      "Beginner": 1.25,
-      "Intermediate": 1.75,
-      "Advanced": 2.5,
-      "Elite": 3.0
+      "Beginner": 1.5,
+      "Intermediate": 2.25,
+      "Advanced": 3.0,
+      "Elite": 3.5
     },
     "F": {
-      "Beginner": 1.25,
+      "Beginner": 1.0,
       "Intermediate": 1.75,
-      "Advanced": 2.5,
+      "Advanced": 2.25,
       "Elite": 3.0
     }
   }
